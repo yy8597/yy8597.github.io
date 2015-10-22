@@ -184,6 +184,99 @@
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
                         
+                                <a class="link-unstyled" href="/2015/10/22/学习笔记 webpack/">学习笔记 一步步了解webpack</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Thu Oct 22 2015 17:11:07 GMT+0800">
+	
+		    Oct 22, 2015
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/all-categories/学习笔记/">学习笔记</a>
+
+
+    
+</div>
+                </div>
+                
+                
+                    <div class="postShorten-content" itemprop="articleBody">
+                        <p><img src="https://camo.githubusercontent.com/ebc085019011ababb0d35024824304831c7dc72a/68747470733a2f2f7765627061636b2e6769746875622e696f2f6173736574732f6c6f676f2e706e67" alt="Markdown Plus"></p>
+<h1 id="前言">前言</h1><p><strong>demo 地址: <a href="https://github.com/yy8597/webpack-demos" target="_blank" rel="external">https://github.com/yy8597/webpack-demos</a></strong></p>
+<p>之前学习了 broswerify，发现确实很好用。虽然没有 grunt 那样丰富的配置和插件，但就是觉得“恩！这就是我想要的结构”。<br>webpack 感觉就是 broswerify 的进阶版，怎么说呢：</p>
+<ul>
+<li>有更多可配置内容</li>
+<li>比起 broswerify 一股脑得打成单包更智能。</li>
+</ul>
+<p><a href="http://webpack.github.io/docs/what-is-webpack.html" target="_blank" rel="external">官方介绍</a></p>
+<h1 id="安装">安装</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> webpack -<span class="keyword">g</span></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>-g 方便我们在命令行直接使用 webpack</p>
+</blockquote>
+<h1 id="使用">使用</h1><h2 id="基本命令_demo1">基本命令 <em>demo1</em></h2><p>首先建立两个文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//entry.js</span><br><span class="line">document.write("It works.");</span><br><span class="line"></span><br><span class="line">//index.html</span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"bundle.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>执行 webpack<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ webpack ./entry<span class="class">.js</span> bundle.js</span><br></pre></td></tr></table></figure></p>
+<p>生成 bundle.js，然后打开 index.html 就可以看到</p>
+<div style="border:5px solid #333;padding:10px;background:yellow;margin:20px 0">It works.</div>
+
+
+<h2 id="添加依赖_demo2">添加依赖 <em>demo2</em></h2><p>增加一个文件</p>
+<pre><code><span class="comment">//content.js</span>
+<span class="function"><span class="keyword">module</span>.<span class="title">exports</span> =</span> <span class="string">"It works from content.js."</span>;
+</code></pre><p>我们修改 entry.js 加载 content.js 的内容</p>
+<pre><code><span class="regexp">//</span><span class="built_in">document</span>.write(<span class="string">"It works."</span>);
+<span class="built_in">document</span>.write(<span class="built_in">require</span>(<span class="string">"./content.js"</span>));
+</code></pre><p>同样执行</p>
+<pre><code>$ webpack ./entry<span class="class">.js</span> bundle.js
+</code></pre><p>在浏览器中看到 </p>
+<div style="border:5px solid #333;padding:10px;background:yellow;margin:20px 0">It works from content.js.</div>
+
+<p>done~  </p>
+<blockquote>
+<p><em>webpack 分析你的入口文件(entry.js)所依赖的其他文件（模块），这些文件都会被打包到 bundle.js中。webpack 会分配给每个模块一个唯一的 Id，在 bundle.js 中通过这个 Id 来访问每个模块。在程序启动的时候只会处理入口模块（entry.js）, require 方法会在执行时即时地处理依赖模块。</em></p>
+</blockquote>
+<h2 id="打包_css_demo3">打包 css <em>demo3</em></h2><p>webpack 只能处理 javascript，要处理 css 就需要安装<strong>css-load</strong>来转换 css 为 js，还要安装<strong>style-loader</strong> 将转换后的 css 加载到 dom 中。</p>
+<p><a href="http://webpack.github.io/docs/using-loaders.html" target="_blank" rel="external">WHAT ARE LOADERS?</a></p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> install css-loader style-loader --save</span><br></pre></td></tr></table></figure>
+<p>接着增加 css 文件<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">body</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> yellow</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>修改 entry.js，然后就能看到效果<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">require(<span class="string">"!style!css!./style.css"</span>);</span><br><span class="line">document.write(require(<span class="string">"./content.js"</span>));</span><br><span class="line">```  </span><br><span class="line">同样执行</span><br><span class="line"></span><br><span class="line">    $ webpack ./entry.js bundle.js</span><br><span class="line"><span class="variable">&lt;div style="border:5px solid #333;padding:10px;background:yellow;margin:20px 0"&gt;</span>It works from content.js.<span class="variable">&lt;/div&gt;</span>  </span><br><span class="line"></span><br><span class="line">&gt; 通过 “!style!css!” 这样的前缀，可以把文件进行一系列的转化，最终变成 javascript 的一个模块。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## *命令行绑定 loaders*</span></span><br><span class="line"></span><br><span class="line">如果我们不想写过长的 require : <span class="keyword">*</span><span class="keyword">*</span>require(<span class="string">"!style!css!./style.css"</span>);<span class="keyword">*</span><span class="keyword">*</span>，简化为<span class="keyword">*</span><span class="keyword">*</span>require(<span class="string">"./style.css"</span>)<span class="keyword">*</span><span class="keyword">*</span>  </span><br><span class="line">或者我们喜欢灵活定制 css 文件的转化方式。</span><br><span class="line"></span><br><span class="line">修改 entry.js</span><br></pre></td></tr></table></figure></p>
+<p>//require(“!style!css!./style.css”);<br>require(“./style.css”);<br>document.write(require(“./content.js”));<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">执行下面的命令：</span><br></pre></td></tr></table></figure></p>
+<p>$ webpack ./entry.js bundle.js –module-bind “css=style!css”<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; 官网说明在这有个错误，<span class="escape">``</span><span class="escape">`c</span>ss=style\!css<span class="escape">``</span><span class="escape">` </span>里面少了个反斜杠，原因是叹号在 bash 里有特殊意义  </span><br><span class="line"></span><br><span class="line">&lt;div style=<span class="string">"border:5px solid #333;padding:10px;background:yellow;margin:20px 0"</span>&gt;It works from content.js.&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 添加 webpack.config.js *demo4*</span><br><span class="line">理解了上面的 demo 以后，接下来我们就可以在项目根目录下新建一个webpack.config.js ，然后通过一句命令<span class="escape">``</span><span class="escape">`$</span> webpack<span class="escape">``</span><span class="escape">`就</span>能打包我们的项目。</span><br></pre></td></tr></table></figure></p>
+<p>//webpack.config.js<br>module.exports = {<br>    entry: “./entry.js”,<br>    output: {<br>        path: __dirname,<br>        filename: “bundle.js”<br>    },<br>    module: {<br>        loaders: [<br>            { test: /.css$/, loader: “style!css” }<br>        ]<br>    }<br>};<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">webpack</span> <span class="comment">命令会尝试读取同目录中的</span> <span class="comment">webpack</span><span class="string">.</span><span class="comment">config</span><span class="string">.</span><span class="comment">js</span> <span class="comment">文件。</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">##</span> <span class="comment">And</span> <span class="comment">More</span></span><br><span class="line"></span><br><span class="line"><span class="comment">还可以通过一些参数使得打包过程可视化</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">$</span> <span class="comment">webpack</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">progress</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">colors</span></span><br><span class="line">    </span><br><span class="line"><span class="literal">-</span><span class="literal">-</span><span class="comment">progress</span> <span class="comment">打印打包日志</span>  </span><br><span class="line"><span class="literal">-</span><span class="literal">-</span><span class="comment">colors</span> <span class="literal">-</span><span class="comment">c</span> <span class="comment">带颜色的日志（官方是这么描述的，但我没看到颜色</span><span class="string">.</span><span class="string">.</span><span class="string">.</span><span class="comment">）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">当然还有</span> <span class="comment">watch</span> <span class="comment">功能</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">$</span> <span class="comment">webpack</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">progress</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">colors</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">watch</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">必须的要有</span> <span class="comment">server</span></span><br></pre></td></tr></table></figure></p>
+<p>$ npm install webpack-dev-server -g<br>$ webpack-dev-server –progress –colors<br>```</p>
+<h2 id="~_完_~">~ 完 ~</h2><p>这里只是介绍了 webpack 基本的用法<br>demo 基本都是翻译自<a href="http://webpack.github.io/docs/tutorials/getting-started/" target="_blank" rel="external">webpack/getting-started</a><br>更多详细和进阶的内容还是推荐去<a href="http://webpack.github.io/docs/" target="_blank" rel="external">官网</a>看看</p>
+<h1 id="参考">参考</h1><ul>
+<li><a href="http://webpack.github.io/docs/tutorials/getting-started/" target="_blank" rel="external">webpack/getting-started</a></li>
+<li><a href="https://webpack.github.io/" target="_blank" rel="external">webpack module bundler</a></li>
+<li><a href="http://webpack.github.io/docs/using-loaders.html" target="_blank" rel="external">WHAT ARE LOADERS?</a></li>
+</ul>
+
+                        
+                            
+
+                        
+                        
+                            <p>
+                                <a href="/2015/10/22/学习笔记 webpack/#post-footer" class="postShorten-excerpt_link link">
+                                    注释和共享
+                                </a>
+                            </p>
+                        
+                    </div>
+                
+            </div>
+            
+        </article>
+    
+        
+        <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
                                 <a class="link-unstyled" href="/2015/10/22/AngularJS实现异步按需加载/">AngularJS实现异步按需加载</a>
                         
                     </h1>
@@ -270,98 +363,6 @@
                         
                             <p>
                                 <a href="/2015/10/22/升级你的 nodejs/#post-footer" class="postShorten-excerpt_link link">
-                                    注释和共享
-                                </a>
-                            </p>
-                        
-                    </div>
-                
-            </div>
-            
-        </article>
-    
-        
-        <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2015/10/22/学习笔记 webpack/">学习笔记 一步步了解webpack</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Thu Oct 22 2015 14:30:16 GMT+0800">
-	
-		    Oct 22, 2015
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/all-categories/学习笔记/">学习笔记</a>
-
-
-    
-</div>
-                </div>
-                
-                
-                    <div class="postShorten-content" itemprop="articleBody">
-                        <p><img src="https://camo.githubusercontent.com/ebc085019011ababb0d35024824304831c7dc72a/68747470733a2f2f7765627061636b2e6769746875622e696f2f6173736574732f6c6f676f2e706e67" alt="Markdown Plus"></p>
-<h1 id="前言">前言</h1><p><strong>源码地址: <a href="https://github.com/yy8597/webpack-demos" target="_blank" rel="external">https://github.com/yy8597/webpack-demos</a></strong></p>
-<p>之前学习了 broswerify，发现确实很好用。虽然没有 grunt 那样丰富的配置和插件，但就是觉得“恩！这就是我想要的结构”。<br>webpack 感觉就是 broswerify 的进阶版，怎么说呢：</p>
-<ul>
-<li>配置文件的说明有更多的配置内容</li>
-<li>智能打包模块，比起 broswerify 一股脑得打成单包要合理。</li>
-</ul>
-<h1 id="安装">安装</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> webpack -<span class="keyword">g</span></span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>-g 方便我们在命令行直接使用 webpack</p>
-</blockquote>
-<h1 id="使用">使用</h1><h2 id="demo1_基本命令">demo1 <em>基本命令</em></h2><p>首先建立两个文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//entry.js</span><br><span class="line">document.write("It works.");</span><br><span class="line"></span><br><span class="line">//index.html</span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"bundle.js"</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>执行 webpack<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ webpack ./entry<span class="class">.js</span> bundle.js</span><br></pre></td></tr></table></figure></p>
-<p>生成 bundle.js，然后打开 index.html 就可以看到</p>
-<div style="border:5px solid #333;padding:10px;background:yellow;margin:20px 0">It works.</div>
-
-
-<h2 id="demo2_添加依赖">demo2 <em>添加依赖</em></h2><p>增加一个文件</p>
-<pre><code><span class="comment">//content.js</span>
-<span class="function"><span class="keyword">module</span>.<span class="title">exports</span> =</span> <span class="string">"It works from content.js."</span>;
-</code></pre><p>我们修改 entry.js 加载 content.js 的内容</p>
-<pre><code><span class="regexp">//</span><span class="built_in">document</span>.write(<span class="string">"It works."</span>);
-<span class="built_in">document</span>.write(<span class="built_in">require</span>(<span class="string">"./content.js"</span>));
-</code></pre><p>同样执行</p>
-<pre><code>$ webpack ./entry<span class="class">.js</span> bundle.js
-</code></pre><p>在浏览器中看到 </p>
-<div style="border:5px solid #333;padding:10px;background:yellow;margin:20px 0">It works from content.js.</div>
-
-<p>done~  </p>
-<blockquote>
-<p><em>webpack 分析你的入口文件(entry.js)所依赖的其他文件（模块），这些文件都会被打包到 bundle.js中。webpack 会分配给每个模块一个唯一的 Id，在 bundle.js 中通过这个 Id 来访问每个模块。在程序启动的时候只会处理入口模块（entry.js）, require 方法会在执行时即时地处理依赖模块。</em></p>
-</blockquote>
-<h2 id="demo3_打包_css">demo3 <em>打包 css</em></h2><p>webpack 只能处理 javascript，要处理 css 就需要安装<strong>css-load</strong>来转换 css 为 js，还要安装<strong>style-loader</strong> 将转换后的 css 加载到 dom 中。</p>
-<p><a href="http://webpack.github.io/docs/using-loaders.html" target="_blank" rel="external">WHAT ARE LOADERS?</a></p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> install css-loader style-loader --save</span><br></pre></td></tr></table></figure>
-<p>接着增加 css 文件<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">body</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> yellow</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>修改 entry.js，然后就能看到效果<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">require(<span class="string">"!style!css!./style.css"</span>);</span><br><span class="line">document.write(require(<span class="string">"./content.js"</span>));</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line"><span class="variable">&lt;div style="border:5px solid #333;padding:10px;background:yellow;margin:20px 0"&gt;</span>It works from content.js.<span class="variable">&lt;/div&gt;</span>  </span><br><span class="line"></span><br><span class="line">&gt; 通过 “!style!css!” 这样的前缀，可以把文件进行一系列的转化，最终变成 javascript 的一个模块。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## demo4 *命令行绑定 loaders*</span></span><br><span class="line">如果我们不想写过长的 require : <span class="keyword">*</span><span class="keyword">*</span>require(<span class="string">"!style!css!./style.css"</span>);<span class="keyword">*</span><span class="keyword">*</span>，简化为<span class="keyword">*</span><span class="keyword">*</span>require(<span class="string">"./style.css"</span>)<span class="keyword">*</span><span class="keyword">*</span>  </span><br><span class="line">或者我们喜欢灵活定制 css 文件的转化方式。</span><br><span class="line"></span><br><span class="line">修改 entry.js</span><br></pre></td></tr></table></figure></p>
-<p>//require(“!style!css!./style.css”);<br>require(“./style.css”);<br>document.write(require(“./content.js”));<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">执行下面的命令：</span><br></pre></td></tr></table></figure></p>
-<p>webpack ./entry.js bundle.js –module-bind “css=style!css”<br>```</p>
-<div style="border:5px solid #333;padding:10px;background:yellow">It works from content.js.</div>
-
-
-<h1 id="参考">参考</h1><ul>
-<li><a href="https://webpack.github.io/" target="_blank" rel="external">webpack module bundler</a></li>
-<li><a href="http://webpack.github.io/docs/using-loaders.html" target="_blank" rel="external">WHAT ARE LOADERS?</a></li>
-<li><a href="http://segmentfault.com/a/1190000002767365" target="_blank" rel="external">轻松入门React和Webpack</a></li>
-</ul>
-
-                        
-                            
-
-                        
-                        
-                            <p>
-                                <a href="/2015/10/22/学习笔记 webpack/#post-footer" class="postShorten-excerpt_link link">
                                     注释和共享
                                 </a>
                             </p>
