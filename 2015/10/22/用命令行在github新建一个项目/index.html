@@ -10,16 +10,64 @@
     <meta name="author" content="YanYang">
     
     
-    <meta name="description">
+    <meta name="description" content="Github Repository API中说明了可以通过发送一个请求来认证，之后就能通过命令行自动新建远程仓库了。
+认证1curl -u &apos;username&apos; https://api.github.com/user/repos -d &apos;&amp;#123;&quot;name&quot;:&quot;RepoName&quot;&amp;#125;&apos;
+
+
+
+替换值
+说明
+
+
+
+
+username
+github 的用户名
+
+
+RepoName
+新建的仓">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="用命令行在github新建一个项目">
 <meta property="og:url" content="http://yyu.info/2015/10/22/用命令行在github新建一个项目/index.html">
 <meta property="og:site_name" content="yyui">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-10-22T06:27:04.000Z">
+<meta property="og:description" content="Github Repository API中说明了可以通过发送一个请求来认证，之后就能通过命令行自动新建远程仓库了。
+认证1curl -u &apos;username&apos; https://api.github.com/user/repos -d &apos;&amp;#123;&quot;name&quot;:&quot;RepoName&quot;&amp;#125;&apos;
+
+
+
+替换值
+说明
+
+
+
+
+username
+github 的用户名
+
+
+RepoName
+新建的仓">
+<meta property="og:updated_time" content="2015-10-22T06:34:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用命令行在github新建一个项目">
-<meta name="twitter:description">
+<meta name="twitter:description" content="Github Repository API中说明了可以通过发送一个请求来认证，之后就能通过命令行自动新建远程仓库了。
+认证1curl -u &apos;username&apos; https://api.github.com/user/repos -d &apos;&amp;#123;&quot;name&quot;:&quot;RepoName&quot;&amp;#125;&apos;
+
+
+
+替换值
+说明
+
+
+
+
+username
+github 的用户名
+
+
+RepoName
+新建的仓">
     
     
     
@@ -191,12 +239,39 @@
     	
     </time>
     
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/all-categories/git命令/">git命令</a>
+
+
+    
 </div>
 </div>
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            
+            <p><a href="https://developer.github.com/v3/repos/" target="_blank" rel="external">Github Repository API</a>中说明了可以通过发送一个请求来认证，之后就能通过命令行自动新建远程仓库了。</p>
+<h1 id="认证">认证</h1><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">curl</span> -u <span class="string">'username'</span> <span class="url">https://api.github.com/user/repos</span> -d <span class="string">'&#123;"name":"RepoName"&#125;'</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>替换值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>github 的用户名</td>
+</tr>
+<tr>
+<td>RepoName</td>
+<td>新建的仓库名</td>
+</tr>
+</tbody>
+</table>
+<p>。</p>
+<h1 id="本地新建仓库">本地新建仓库</h1><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>touch <span class="constant">README</span>.md</span><br><span class="line"><span class="variable">$ </span>git init</span><br><span class="line"><span class="variable">$ </span>git add *</span><br><span class="line"><span class="variable">$ </span>git commit -m <span class="string">"first commit"</span></span><br><span class="line"><span class="variable">$ </span>git remove add origin <span class="symbol">https:</span>/<span class="regexp">/github.com/yourname</span><span class="regexp">/RepoName.git</span><br><span class="line">$ git push -u origin master</span><br><span class="line">/</span><span class="regexp">/参数-u 以后就可以直接用不带参数的git pull从之前push到的分支来pull</span></span><br></pre></td></tr></table></figure>
             
                 
 
@@ -218,7 +293,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/10/21/AngularJS实现异步按需加载/" data-tooltip="AngularJS实现异步按需加载">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -293,7 +368,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/10/21/AngularJS实现异步按需加载/" data-tooltip="AngularJS实现异步按需加载">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
