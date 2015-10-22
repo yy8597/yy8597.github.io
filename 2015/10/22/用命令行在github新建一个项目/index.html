@@ -6,29 +6,20 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="yyui">
-    <title>AngularJS实现异步按需加载 - yyui</title>
+    <title>用命令行在github新建一个项目 - yyui</title>
     <meta name="author" content="YanYang">
     
     
-    <meta name="description" content="习惯了 seajs 的异步加载方式，也想着 angular 也能同样使用异步加载，但是事实不随人愿。
-angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块（这和 seajs 的懒加载正好相反），当一个单页面应用的模块越来越多时，也就意味着需要预加载的模块也会越来越多，这也许也就说明了 angular 更适合用来开发轻应用。
-
-正式开始路由我使用了angular-ui-r">
+    <meta name="description">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="AngularJS实现异步按需加载">
-<meta property="og:url" content="http://yyu.info/2015/10/21/AngularJS实现异步按需加载/index.html">
+<meta property="og:title" content="用命令行在github新建一个项目">
+<meta property="og:url" content="http://yyu.info/2015/10/22/用命令行在github新建一个项目/index.html">
 <meta property="og:site_name" content="yyui">
-<meta property="og:description" content="习惯了 seajs 的异步加载方式，也想着 angular 也能同样使用异步加载，但是事实不随人愿。
-angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块（这和 seajs 的懒加载正好相反），当一个单页面应用的模块越来越多时，也就意味着需要预加载的模块也会越来越多，这也许也就说明了 angular 更适合用来开发轻应用。
-
-正式开始路由我使用了angular-ui-r">
-<meta property="og:updated_time" content="2015-10-21T07:13:05.000Z">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-10-22T06:27:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AngularJS实现异步按需加载">
-<meta name="twitter:description" content="习惯了 seajs 的异步加载方式，也想着 angular 也能同样使用异步加载，但是事实不随人愿。
-angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块（这和 seajs 的懒加载正好相反），当一个单页面应用的模块越来越多时，也就意味着需要预加载的模块也会越来越多，这也许也就说明了 angular 更适合用来开发轻应用。
-
-正式开始路由我使用了angular-ui-r">
+<meta name="twitter:title" content="用命令行在github新建一个项目">
+<meta name="twitter:description">
     
     
     
@@ -190,13 +181,13 @@ angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块�
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            AngularJS实现异步按需加载
+            用命令行在github新建一个项目
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Wed Oct 21 2015 15:13:05 GMT+0800">
+    <time itemprop="datePublished" content="Thu Oct 22 2015 14:27:04 GMT+0800">
 	
-		    Oct 21, 2015
+		    Oct 22, 2015
     	
     </time>
     
@@ -205,12 +196,7 @@ angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块�
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>习惯了 seajs 的异步加载方式，也想着 angular 也能同样使用异步加载，但是事实不随人愿。</p>
-<p>angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块（这和 seajs 的懒加载正好相反），当一个单页面应用的模块越来越多时，也就意味着需要预加载的模块也会越来越多，这也许也就说明了 angular 更适合用来开发轻应用。</p>
-<hr>
-<h2 id="正式开始">正式开始</h2><p>路由我使用了<a href="https://github.com/angular-ui/ui-router" target="_blank" rel="external">angular-ui-router</a>，模块加载器是 requirejs<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//路由</span><br><span class="line">&#123;</span><br><span class="line">    state : <span class="string">'login'</span>,</span><br><span class="line">    templateUrl : <span class="string">'login/login.html'</span>,</span><br><span class="line">    controller : <span class="string">'loginCtrl'</span>,</span><br><span class="line">    resolve: &#123;</span><br><span class="line">        realCtrl : function (<span class="variable">$q</span>) &#123;</span><br><span class="line">            var def = <span class="variable">$q</span>.defer();</span><br><span class="line">            require([<span class="string">'/features/login/login.js'</span>], function (loginCtrl) &#123;</span><br><span class="line">                def.resolve(loginCtrl)</span><br><span class="line">            &#125;);</span><br><span class="line">            return def.promise;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">// 获得<span class="variable">$controllerProvider</span></span><br><span class="line">app.config(<span class="keyword">function</span>(<span class="variable">$controllerProvider</span>) &#123;</span><br><span class="line">    app.registerController = <span class="variable">$controllerProvider</span>.register;</span><br><span class="line">    // ...</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// loginControler</span><br><span class="line">app.registerController(<span class="string">'loginCtrl'</span>, <span class="keyword">function</span> (<span class="variable">$scope</span>) &#123;</span><br><span class="line">   // do something</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h2 id="参考">参考</h2><p><a href="http://www.alloyteam.com/2015/10/angular-application-how-to-load-on-demand/#prettyPhoto" target="_blank" rel="external">angular应用如何实现按需加载</a></p>
-
+            
             
                 
 
@@ -219,19 +205,12 @@ angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块�
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
         
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br/>
-                
-    <a class="tag tag--primary tag--small t-link" href="/all-tags/AngularJS/">AngularJS</a> <a class="tag tag--primary tag--small t-link" href="/all-tags/RequireJS/">RequireJS</a>
-
-            </div>
-        
         <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/10/22/用命令行在github新建一个项目/"  data-tooltip="用命令行在github新建一个项目">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/10/22/学习笔记 webpack/"  data-tooltip="学习笔记 一步步了解webpack">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -239,7 +218,7 @@ angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块�
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/10/21/AngularJS实现异步按需加载/" data-tooltip="AngularJS实现异步按需加载">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -254,17 +233,17 @@ angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块�
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yyu.info/2015/10/21/AngularJS实现异步按需加载/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yyu.info/2015/10/22/用命令行在github新建一个项目/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yyu.info/2015/10/21/AngularJS实现异步按需加载/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yyu.info/2015/10/22/用命令行在github新建一个项目/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yyu.info/2015/10/21/AngularJS实现异步按需加载/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yyu.info/2015/10/22/用命令行在github新建一个项目/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -306,7 +285,7 @@ angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块�
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/10/22/用命令行在github新建一个项目/"  data-tooltip="用命令行在github新建一个项目">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/10/22/学习笔记 webpack/"  data-tooltip="学习笔记 一步步了解webpack">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -314,7 +293,7 @@ angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块�
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/10/21/AngularJS实现异步按需加载/" data-tooltip="AngularJS实现异步按需加载">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -329,17 +308,17 @@ angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块�
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yyu.info/2015/10/21/AngularJS实现异步按需加载/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yyu.info/2015/10/22/用命令行在github新建一个项目/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yyu.info/2015/10/21/AngularJS实现异步按需加载/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yyu.info/2015/10/22/用命令行在github新建一个项目/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yyu.info/2015/10/21/AngularJS实现异步按需加载/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yyu.info/2015/10/22/用命令行在github新建一个项目/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -365,17 +344,17 @@ angularjs 和 requirejs 一样，使用的是预先加载的方式组织模块�
                 <div id="share-options-bar" class="share-options-bar" data-behavior="3">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yyu.info/2015/10/21/AngularJS实现异步按需加载/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yyu.info/2015/10/22/用命令行在github新建一个项目/">
                 <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yyu.info/2015/10/21/AngularJS实现异步按需加载/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yyu.info/2015/10/22/用命令行在github新建一个项目/">
                 <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yyu.info/2015/10/21/AngularJS实现异步按需加载/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yyu.info/2015/10/22/用命令行在github新建一个项目/">
                 <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
             </a>
         </li>
